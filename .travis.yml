@@ -1,0 +1,18 @@
+language: java
+
+os: linux
+
+env:
+  global:
+    - DEFAULT_HADOOP_ADDRESS=hdfs://192.168.11.25:9000
+    - DEFAULT_ZOOKEEPER_ADDRESS=192.168.11.25:2181/
+
+sudo: required
+
+jdk:
+  - oraclejdk8
+
+script: mvn clean install cobertura:cobertura -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
